@@ -3,7 +3,7 @@ let firstValue = prompt("Enter first value:");
 
 let secondValue = prompt("Enter second value:");
 
-if(firstValue == secondValue){
+if (firstValue === secondValue) {
 
     alert("Values are equal");
 

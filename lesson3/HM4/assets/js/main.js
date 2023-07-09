@@ -3,44 +3,44 @@ let userInfo = "";
 
 let year = prompt("Введите год рождения:", 2000);
 
-if(year==null){
+if (year == null) {
     alert("Жаль что Вы не захотели ввести свой год роджения.");
 } else {
-    userInfo += "Год рождения: "+year+"\n";
+    userInfo += "Год рождения: " + year + "\n";
 }
 
 let city = prompt("Введите название города в котором проживаете:", "Одесса");
 
-if(city==null){
+if (city == null) {
     alert("Жаль что Вы не захотели ввести название города.");
 }
 
 let sport = prompt("Введите название любимого вида спорта:", "Лол, спорт?");
 
 
-if(sport==null){    
+if (sport == null) {
     alert("Жаль что Вы не захотели ввести название любимого вида спорта.");
 }
 
 
-switch(city){
+switch (city) {
     case "Киев":
-        userInfo += "Ты живёшь в столице Украины, в городе "+city+"\n";
+        userInfo += "Ты живёшь в столице Украины, в городе " + city + "\n";
         break;
     case "Лондон":
-        userInfo += "Ты живёшь в столице Англии, в городе "+city+"\n";
+        userInfo += "Ты живёшь в столице Англии, в городе " + city + "\n";
         break;
     case "Вашингтон":
-        userInfo += "Ты живёшь в столице США, в городе "+city+"\n";
+        userInfo += "Ты живёшь в столице США, в городе " + city + "\n";
         break;
     case null:
         break;
     default:
-        userInfo += "Ты живёшь в городе "+city+"\n";
+        userInfo += "Ты живёшь в городе " + city + "\n";
         break;
 }
 
-switch(sport){
+switch (sport) {
     case "Тхэквондо":
         userInfo += "Круто! Хочешь стать как Стивен Лопез.\n";
         break;
@@ -53,11 +53,11 @@ switch(sport){
     case null:
         break;
     default:
-        userInfo += "Твой любимый спорт: "+sport+"\n";
+        userInfo += "Твой любимый спорт: " + sport + "\n";
         break;
 }
 
-if(userInfo == "") {
+if (userInfo == "") {
     alert("Пользователь не ввёл данных. :( ");
 } else {
     alert(userInfo);
