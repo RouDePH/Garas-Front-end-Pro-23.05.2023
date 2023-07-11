@@ -12,7 +12,7 @@ if (!isNaN(number)) {
     let fifthDigit = Math.floor((number / 10) % 10);
     let sixthDigit = number % 10;
 
-    if (firstDigit + secondDigit + thirdDigit === fourthDigit + fifthDigit + sixthDigit) {
+    if (firstDigit === sixthDigit && secondDigit === fifthDigit && thirdDigit === fourthDigit) {
         alert("Число зеркальное ");
     } else {
         alert("Число не зеркальное");
