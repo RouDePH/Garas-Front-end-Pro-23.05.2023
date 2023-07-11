@@ -9,13 +9,13 @@ if (!isNaN(number)) {
     let secondDigit = number % 10;
 
     if (firstDigit > secondDigit) {
-        alert("Первое число двухзначного числа больше");
+        alert("Первая цифра двухзначного числа больше.");
     }
     if (firstDigit < secondDigit) {
-        alert("Второе число двухзначного числа больше");
+        alert("Вторая цифра двухзначного числа больше.");
     }
     if (firstDigit === secondDigit) {
-        alert("Числа равны!");
+        alert("Цифры равны!");
     }
 
 } else {

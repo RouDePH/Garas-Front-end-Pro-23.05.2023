@@ -16,13 +16,13 @@ if (!isNaN(number)) {
     let sum = firstDigit + secondDigit + thirdDigit;
     let dobytok = firstDigit * secondDigit * thirdDigit;
 
-    if (sum % 2 == 0) {
+    if (sum % 2 === 0) {
         alert("Сумма цифр - чётное число.");
     } else {
         alert("Сумма цифр - Нечетное  число");
     }
 
-    if (sum % 5 == 0) {
+    if (sum % 5 === 0) {
         alert("Сумма чисел кратна пяти.");
     } else {
         alert("Сумма чисел не кратна пяти.");

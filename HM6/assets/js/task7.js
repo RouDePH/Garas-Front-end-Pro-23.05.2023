@@ -11,12 +11,12 @@ if (!isNaN(number)) {
   let secondDigit = Math.floor((number / 10) % 10);
   let thirdDigit = number % 10;
 
-  if (firstDigit == secondDigit == thirdDigit) {
+  if (firstDigit === secondDigit && firstDigit === thirdDigit && secondDigit === thirdDigit) {
     alert("Все цифры числа " + number + " равны");
   } else {
     alert("Цифры введённого числа не равны");
   }
-  if (firstDigit == secondDigit || firstDigit == thirdDigit | thirdDigit == secondDigit) {
+  if (firstDigit === secondDigit || firstDigit === thirdDigit || thirdDigit === secondDigit) {
     alert("В числе есть одинаковые числа");
   } else {
     alert("В числе нет одинаковых чисел");

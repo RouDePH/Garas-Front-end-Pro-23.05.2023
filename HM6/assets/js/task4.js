@@ -12,10 +12,10 @@ if (!isNaN(number)) {
 
     let lastDigit = number % 10;
 
-    if (number % 2 == 0) {
-        alert(`Введённое число - парное.\nПоследняя цифра: ${lastDigit}`);
+    if (lastDigit % 2 === 0) {
+        alert(`Последняя цифра: ${lastDigit} - парная цифра`);
     } else {
-        alert(`Введённое число не парное.\nПоследняя цифра: ${lastDigit}`);
+        alert(`Последняя цифра: ${lastDigit} - цифра не парная`);
     }
 
 } else {

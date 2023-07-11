@@ -6,9 +6,9 @@ var number2 = parseInt(prompt("Введите второе число:", 0));
 
 if (!isNaN(number1) && !isNaN(number2)) {
 
-    if (number1 % number2 == 0) {
+    if (number1 % number2 === 0) {
         alert(`Второе число ${number2} - дилитель числа ${number1}`);
-    } else if (+number2 % number1 == 0) {
+    } else if (+number2 % number1 === 0) {
         alert(`Первое число ${number1} - дилитель числа  ${number2}`);
     } else {
         alert("Числа не являются дилителями друг друга");
