@@ -21,7 +21,7 @@ let numOrStr = prompt('input number or string');
 //         console.log('OK!');
 // }
 
-switch(true){
+switch(true){  // Почему-то думал что такое исполение будет неправльным :) 
     case numOrStr === null:
         console.log('ви відмінили');
         break;
