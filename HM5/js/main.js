@@ -4,17 +4,18 @@
 //тому подфіксіть і буде бал вищче)
 
 let numOrStr = prompt('input number or string');
-console.log(numOrStr)
+console.log(numOrStr);
+console.log(isNaN(+numOrStr));
 
-switch (numOrStr) {
+switch (numOrStr && isNaN(+numOrStr)) {
     case null:
         console.log('ви відмінили');
         break;
-    case numOrStr.trim() === '':
+    case "":
         console.log('Empty String');
         break;
-    case isNaN(+numOrStr):
-        console.log(' number is Ba_NaN');
+    case true:
+        console.log('number is Ba_NaN');
         break;
     default:
         console.log('OK!');
