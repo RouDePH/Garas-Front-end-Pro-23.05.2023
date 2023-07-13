@@ -1,8 +1,6 @@
 
 class Flat {
-    constructor() {
-        this.people = [];
-    }
+    people = [];
 
     addPerson(person) {
         this.people.push(person);

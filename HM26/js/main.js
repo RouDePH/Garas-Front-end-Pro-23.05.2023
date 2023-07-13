@@ -10,7 +10,7 @@ const voteTales = [
 const root = document.getElementById('root');
 
 root.addEventListener('click', (event) => {
-    if (event.target.className = "vote-tale") {
+    if (event.target.className === "vote-tale") {
 
         const voteTale = event.target;
 
