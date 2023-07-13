@@ -49,24 +49,50 @@ body {
     background-color: #04AA6D;
 }
 
-.column {
-    float: left;
+.wrapper {
+    max-width: 1000px;
+    margin: 1rem auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
+
+    @media (min-width: 32rem) {
+        grid-template-columns: 250px minmax(10px, 1fr);
+    }
+
+    >* {
+        padding: 1rem;
+    }
 }
 
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
+aside {
+    position: sticky;
+    top: 20%;
+    align-self: start;
+    background-color: lightblue;
 }
 
-.left {
-    width: 10%;
+main {
+    background-color: #f7f7f7;
+
+    p {
+        margin-bottom: 1rem;
+    }
 }
 
-.right {
-    width: 45%;
+nav {
+    li:not(:last-child) {
+        margin-bottom: 1rem;
+    }
 }
 
-.middle {
-    width: 50%;
+h2 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+a {
+    color: #222;
+    text-decoration: none;
 }
