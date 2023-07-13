@@ -1,5 +1,5 @@
 
-import Hamburger from "./hamburger";
+import Hamburger from "../js/hamburger.js";
 
 const hamburger = new Hamburger(Hamburger.SIZE_SMALL, Hamburger.STUFFING_CHEESE);
 hamburger.addTopping(Hamburger.TOPPING_MAYO);
