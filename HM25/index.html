@@ -8,28 +8,9 @@
 </head>
 
 <body>
-    <button id="button1">Перейти на сайт 1</button>
-    <button id="button2">Перейти на сайт 2</button>
-
-    <script>
-        const button1 = document.getElementById('button1');
-        const button2 = document.getElementById('button2');
-
-        function redirectToUrl(url) {
-            if (!/^https?:\/\//i.test(url)) {
-                url = 'http://' + url;
-            }
-            window.location.href = url;
-        }
-
-        button1.addEventListener('click', () => {
-            redirectToUrl('https://www.example.com');
-        });
-
-        button2.addEventListener('click', () => {
-            redirectToUrl('www.example.com');
-        });
-    </script>
+    <button id="user-button">Пользовательский URL</button>
+    <button id="google-button">Google.com</button>
+    <script type="text/javascript" src="js/main.js"></script>
 </body>
 
 </html>
