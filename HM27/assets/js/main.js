@@ -1,9 +1,13 @@
 import categories from "../js/data/categories.js";
-
-window.onscroll = function () { myFunction() };
+import products from "./data/products.js";
 
 const header = document.getElementById("header");
+const navigator = document.getElementById("navigator");
+const leftColumn = document.querySelector('.left-column');
+const rightColumn = document.querySelector('.right-column');
+
 const sticky = header.offsetTop;
+window.onscroll = myFunction;
 
 function myFunction() {
     if (window.pageYOffset > sticky) {
@@ -12,8 +16,6 @@ function myFunction() {
         header.classList.remove("sticky");
     }
 }
-
-const navigator = document.getElementById("navigator");
 
 let active = categories[0].nodeId;
 
@@ -30,6 +32,8 @@ navigator.addEventListener('click', (event) => {
 function refreshCategories() {
 
     navigator.innerHTML = '';
+    leftColumn.innerHTML = '';
+    hideDetails();
 
     categories.forEach(category => {
 
@@ -48,11 +52,58 @@ function refreshCategories() {
 
         a.appendChild(img);
         navigator.appendChild(a);
+
     });
 
+    products.forEach(product => {
+        if (active === product.category.nodeId) {
+
+            const div = document.createElement('div');
+            div.className = "product";
+            div.addEventListener('click', () => {
+                showDetails(div);
+            });
+
+            const h3 = document.createElement("h3");
+            const p = document.createElement("p");
+
+            h3.innerText = product.name;
+            p.innerText = product.description;
+
+            div.appendChild(h3);
+            div.appendChild(p);
+
+            leftColumn.appendChild(div);
+        }
+    });
+
+} refreshCategories();
+
+
+function showDetails(product) {
+
+    rightColumn.style.flex = 1;
+    rightColumn.innerHTML = "";
+
+    const h3 = document.createElement('h3');
+    h3.innerHTML = product.querySelector('h3').innerHTML;
+
+    const p = document.createElement('p');
+    p.innerHTML = product.querySelector('p').innerHTML;
+
+    const button = document.createElement('button');
+    button.innerText = "close";
+    button.onclick = hideDetails;
+
+    rightColumn.appendChild(h3);
+    rightColumn.appendChild(p);
+    rightColumn.appendChild(button);
 }
 
-refreshCategories();
+function hideDetails() {
+    rightColumn.innerHTML = '';
+    rightColumn.style.flex = 0;
+}
 
 
 
