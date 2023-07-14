@@ -7,9 +7,9 @@ const leftColumn = document.querySelector('.left-column');
 const rightColumn = document.querySelector('.right-column');
 
 const sticky = header.offsetTop;
-window.onscroll = myFunction;
+window.onscroll = pinHeader;
 
-function myFunction() {
+function pinHeader() { // Функция закрепления хэдера 
     if (window.pageYOffset > sticky) {
         header.classList.add("sticky");
     } else {
@@ -17,93 +17,107 @@ function myFunction() {
     }
 }
 
-let active = categories[0].nodeId;
+let selectedCategoryNodeId = categories[0].nodeId; // Id выбранной категории 
 
-navigator.addEventListener('click', (event) => {
+navigator.addEventListener('click', (event) => { // Слушатель для смены категорий
     if (event.target.nodeName === "IMG") {
-
-        console.log(event.target.id);
-
-        active = event.target.id;
+        selectedCategoryNodeId = event.target.id;
         refreshCategories();
     }
 });
 
 function refreshCategories() {
 
-    navigator.innerHTML = '';
+    navigator.innerHTML = ''; 
     leftColumn.innerHTML = '';
     hideDetails();
 
-    categories.forEach(category => {
+    categories.forEach(category => { // Создаём новый набор категорий (обновляем выбранную пользователем категорию)
 
-        const a = document.createElement('a');
-        const img = document.createElement('img');
+        const iconElement = document.createElement('a');
+        const icon = document.createElement('img');
 
-        a.href = "#";
-        if (active === category.nodeId) {
-            a.className = "active";
+        iconElement.href = "#";
+        if (selectedCategoryNodeId === category.nodeId) {
+            iconElement.className = "active";
         }
 
-        img.src = category.src;
-        img.className = "icon";
-        img.alt = `${category.src}`;
-        img.id = category.nodeId;
+        icon.src = category.src;
+        icon.className = "icon";
+        icon.alt = `${category.src}`;
+        icon.id = category.nodeId;
 
-        a.appendChild(img);
-        navigator.appendChild(a);
+        iconElement.appendChild(icon);
+        navigator.appendChild(iconElement);
 
     });
 
-    products.forEach(product => {
-        if (active === product.category.nodeId) {
+    products.forEach(product => { /// Создаём новый список продуктов в зависимости от выбранной категории 
+        if (selectedCategoryNodeId === product.category.nodeId) {
 
-            const div = document.createElement('div');
-            div.className = "product";
-            div.addEventListener('click', () => {
-                showDetails(div);
+            const productElement = document.createElement('div');
+            productElement.className = "product";
+            productElement.addEventListener('click', () => {
+                showDetails(product);
             });
 
-            const h3 = document.createElement("h3");
+            const title = document.createElement("h3");
             const p = document.createElement("p");
 
-            h3.innerText = product.name;
+            title.innerText = product.name;
             p.innerText = product.description;
 
-            div.appendChild(h3);
-            div.appendChild(p);
+            productElement.appendChild(title);
+            productElement.appendChild(p);
 
-            leftColumn.appendChild(div);
+            leftColumn.appendChild(productElement);
         }
     });
 
-} refreshCategories();
-
-
-function showDetails(product) {
-
-    rightColumn.style.flex = 1;
-    rightColumn.innerHTML = "";
-
-    const h3 = document.createElement('h3');
-    h3.innerHTML = product.querySelector('h3').innerHTML;
-
-    const p = document.createElement('p');
-    p.innerHTML = product.querySelector('p').innerHTML;
-
-    const button = document.createElement('button');
-    button.innerText = "close";
-    button.onclick = hideDetails;
-
-    rightColumn.appendChild(h3);
-    rightColumn.appendChild(p);
-    rightColumn.appendChild(button);
 }
 
-function hideDetails() {
+function showDetails(product) { // Показываем детальную информацию о продукте 
+
+    rightColumn.innerHTML = ""; // Очищаем компонент
+    rightColumn.style.flex = 1; // Меняем вес компонента (в закрытом положении flex = 0)
+   
+
+    const title = document.createElement('h3');
+    title.innerText = product.name;
+
+    const description = document.createElement('p');
+    description.innerText = product.fullDescription;
+
+    const price = document.createElement('p');
+    price.innerText = `${product.price}₴`;
+
+    const closeButton = document.createElement('button');
+    closeButton.innerText = "Close";
+    closeButton.onclick = hideDetails;
+
+
+    const buyButton = document.createElement('button');
+    buyButton.innerText = "Buy";
+    buyButton.addEventListener("click", () => buyProduct(product))
+
+    rightColumn.appendChild(title);
+    rightColumn.appendChild(description);
+    rightColumn.appendChild(price);
+    rightColumn.appendChild(closeButton);
+    rightColumn.appendChild(buyButton);
+}
+
+function hideDetails() { // Прячем компонент детальной информациии продукта
     rightColumn.innerHTML = '';
     rightColumn.style.flex = 0;
 }
 
+function buyProduct(product) { // Выводим пользователю сообщение о покупке, закрываем компонент продукта 
+
+    alert(`You bought ${product.name}, its price ${product.price}₴`);
+
+    hideDetails()
+}
 
 
+refreshCategories(); //Запускаем :)
