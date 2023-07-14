@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+.container {
+  display: flex;
+}
+
+.left-column {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.right-column {
+  flex: 1;
+}
+
+.product {
+  width: calc(50% - 20px);
+  margin: 10px;
+  padding: 10px;
+  background-color: #ccc;
+  cursor: pointer;
+}
+
+.product:hover {
+  background-color: #aaa;
+}
+  </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-column">
+          <div class="product" onclick="showDetails(this)">
+            <h3>Product 1</h3>
+            <p>Description of product 1</p>
+          </div>
+          <div class="product" onclick="showDetails(this)">
+            <h3>Product 2</h3>
+            <p>Description of product 2</p>
+          </div>
+          <div class="product" onclick="showDetails(this)">
+            <h3>Product 3</h3>
+            <p>Description of product 3</p>
+          </div>
+          <div class="product" onclick="showDetails(this)">
+            <h3>Product 4</h3>
+            <p>Description of product 4</p>
+          </div>
+        </div>
+        <div class="right-column"></div>
+      </div>
+  <script>
+function showDetails(product) {
+  // Move all products to the left column
+  const leftColumn = document.querySelector('.left-column');
+  const products = leftColumn.querySelectorAll('.product');
+  products.forEach(p => {
+    if (p !== product) {
+      leftColumn.appendChild(p);
+    }
+  });
+
+  // Show product details in the right column
+  const rightColumn = document.querySelector('.right-column');
+  rightColumn.innerHTML = `
+    <h3>${product.querySelector('h3').innerHTML}</h3>
+    <p>${product.querySelector('p').innerHTML}</p>
+    <button onclick="hideDetails()">Close</button>
+  `;
+}
+
+function hideDetails() {
+  // Move all products back to the left column
+  const leftColumn = document.querySelector('.left-column');
+  const products = document.querySelectorAll('.product');
+  products.forEach(p => {
+    leftColumn.appendChild(p);
+  });
+
+  // Hide the product details in the right column
+  const rightColumn = document.querySelector('.right-column');
+  rightColumn.innerHTML = '';
+}
+  </script>
+</body>
+</html>
