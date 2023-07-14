@@ -1,4 +1,3 @@
-
 class Category {
     constructor(id, src) {
         this.id = id;

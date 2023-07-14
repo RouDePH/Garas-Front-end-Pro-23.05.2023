@@ -13,6 +13,17 @@ body {
     grid-template-rows: auto 1fr auto;
 }
 
+button {
+    background-color: white;
+    border: none;
+    color: black;
+    padding: 20px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 12px;
+    margin: 4px 2px;
+  }
+
 .header {
     padding: 10px 16px;
     background: #555;
@@ -32,11 +43,13 @@ body {
 }
 
 .navigator {
+    
     width: fit-content;
     background-color: #555;
 }
 
 .navigator a {
+    border-radius: 25px;
     z-index: 1;
     display: block;
     text-align: center;
@@ -45,11 +58,12 @@ body {
 }
 
 .navigator a:hover {
-    background-color: #000;
+    border-radius: 25px;
+    background-color: #aaa;
 }
 
 .active {
-    background-color: #04AA6D;
+    background-color: white;
 }
 
 .icon {
@@ -60,6 +74,7 @@ body {
 }
 
 .wrapper {
+    
     max-width: 60%;
     margin: 2.5% auto;
     display: grid;
@@ -76,12 +91,14 @@ body {
 }
 
 aside {
+    border-radius: 25px;
     background-color: #555;
     margin: auto;
     height: 100%;
 }
 
 main {
+    border-radius: 25px;
     height: 100%;
     margin: auto;
     background-color: #f7f7f7;
@@ -90,9 +107,6 @@ main {
         margin-bottom: 1rem;
     }
 }
-
-
-
 
 .container {
     display: flex;
@@ -105,6 +119,7 @@ main {
 }
 
 .right-column {
+    border-radius: 25px;
     flex: 0;
     color: #f1f1f1;
     background-color: #555;
@@ -113,6 +128,7 @@ main {
 }
 
 .product {
+    border-radius: 25px;
     width: calc(25%);
     margin: 10px;
     padding: 10px;
