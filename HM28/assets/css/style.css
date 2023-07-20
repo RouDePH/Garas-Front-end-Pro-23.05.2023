@@ -1,25 +1,25 @@
-body{
-    color: grey;
+.slider-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
 }
 
-.button{
-    height: 10%;
-    width: 10%;
-    color: #000;
+#prev-button,
+#next-button {
+    position: absolute;
+    top: 25%;
+    height: 50%;
 }
 
-.next-buttton{
-
+#prev-button {
+    left: 0;
 }
 
-.prev-buttton{
-
+#next-button {
+    right: 0;
 }
 
-.buttons-container{
-
-}
-
-.image-container{
-
+#slider-image {
+    height: 200px;
+    width: 200px;
 }
