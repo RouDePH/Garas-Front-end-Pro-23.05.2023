@@ -2,68 +2,37 @@
 const registrationForm = document.getElementById("registration-form");
 const tableContainer = document.getElementById("table-container");
 
-registrationForm.addEventListener("submit", function (event) {
-    event.preventDefault();
+registrationForm.addEventListener("submit", function (e) {
 
-    const firstName = document.getElementById("first-name").value;
-    const lastName = document.getElementById("last-name").value;
-    const birthdate = document.getElementById("birthdate").value;
-    const gender = document.querySelector('input[name="gender"]:checked').value;
-    const city = document.getElementById("city").value;
-    const address = document.getElementById("address").value;
-    const languages = document.querySelectorAll('input[name="languages"]:checked');
-    const languagesArray = [];
+    e.preventDefault();
+    const data = new FormData(e.target);
+    const dataArray = [...data.entries()];
 
-    languages.forEach(function (language) {
-        languagesArray.push(language.value);
+    const mergedObject = {};
+    dataArray.forEach(([key, value]) => {
+    if (mergedObject[key]) {
+        mergedObject[key].push(value);
+    } else {
+        mergedObject[key] = [value];
+    }
     });
 
+    const mergedDataArray = Object.entries(mergedObject);
+    console.log(mergedDataArray);
+
+    tableContainer.style.display = 'block';
+    registrationForm.style.display = 'none';
+
+    const dataTableBody = document.getElementById('dataTableBody');
     const row = document.createElement("tr");
 
-    const firstNameCell = document.createElement("td");
-    firstNameCell.textContent = firstName;
-    row.appendChild(firstNameCell);
+    mergedDataArray.forEach(item => {
+      const itemNode = document.createElement("td");
+      const [key, value] = item;
+      itemNode.innerText = value;
+      row.appendChild(itemNode);
+    });
 
-    const lastNameCell = document.createElement("td");
-    lastNameCell.textContent = lastName;
-    row.appendChild(lastNameCell);
+    dataTableBody.appendChild(row);
 
-    const birthdateCell = document.createElement("td");
-    birthdateCell.textContent = birthdate;
-    row.appendChild(birthdateCell);
-
-    const genderCell = document.createElement("td");
-    genderCell.textContent = gender;
-    row.appendChild(genderCell);
-
-    const cityCell = document.createElement("td");
-    cityCell.textContent = city;
-    row.appendChild(cityCell);
-
-    const addressCell = document.createElement("td");
-    addressCell.textContent = address;
-    row.appendChild(addressCell);
-
-    const languagesCell = document.createElement("td");
-    languagesCell.textContent = languagesArray.join(", ");
-    row.appendChild(languagesCell);
-
-
-    const title = document.createElement("tr");
-
-    title.innerHTML = `
-        <th>First name</th>
-        <th>Second name</th>
-        <th>Birthdate</th>
-        <th>Gender</th>
-        <th>City</th>
-        <th>Address</th>
-        <th>Language</th>`;
-
-    const table = document.createElement("table");
-    table.appendChild(title);
-    table.appendChild(row);
-
-    registrationForm.style.display = "none";
-    tableContainer.appendChild(table);
 });
