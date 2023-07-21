@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 31</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <form id="registration-form">
+        <div>
+            <label for="first-name">Ім'я:</label>
+            <input type="text" id="first-name" name="first-name" required>
+        </div>
+        <div>
+            <label for="last-name">Прізвище:</label>
+            <input type="text" id="last-name" name="last-name" required>
+        </div>
+        <div>
+            <label for="birthdate">Дата народження:</label>
+            <input type="date" id="birthdate" name="birthdate" required>
+        </div>
+        <div>
+            <label>Стать:</label>
+            <input type="radio" id="male" name="gender" value="male" required>
+            <label for="male">Чоловік</label>
+            <input type="radio" id="female" name="gender" value="female" required>
+            <label for="female">Жінка</label>
+        </div>
+        <div>
+            <label for="city">Місто:</label>
+            <select id="city" name="city" required>
+                <option value=""></option>
+                <option value="kyiv">Київ</option>
+                <option value="lviv">Львів</option>
+                <option value="odesa">Одеса</option>
+            </select>
+        </div>
+        <div>
+            <label for="address">Адреса:</label>
+            <textarea id="address" name="address" required></textarea>
+        </div>
+        <div>
+            <label>Мови, якими володієте:</label>
+            <input type="checkbox" id="ukrainian" name="languages" value="ukrainian">
+            <label for="ukrainian">Українська</label>
+            <input type="checkbox" id="russian" name="languages" value="russian">
+            <label for="russian">Російська</label>
+            <input type="checkbox" id="english" name="languages" value="english">
+            <label for="english">Англійська</label>
+        </div>
+        <input type="submit"></button>
+    </form>
+    <div id="table-container"></div>
+
+    <script type="module" src="assets/js/main.js"></script>
+</body>
+
+</html>
