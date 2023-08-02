@@ -8,6 +8,8 @@ const PORT = 5500;
 app.use(express.json());
 
 app.get("/", (req, res) => {
+
+    console.log("1")
     res.send("<h2>It's Working!</h2>");
 });
 
