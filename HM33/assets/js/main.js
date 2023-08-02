@@ -1,5 +1,5 @@
 document.getElementById('searchBtn').addEventListener('click', function () {
-    
+
     const commentsContainer = document.getElementById('commentsContainer');
     const postId = document.getElementById('postId').value;
 
@@ -58,9 +58,9 @@ document.getElementById('searchBtn').addEventListener('click', function () {
 });
 
 const firstLettertoUpperCase = (data) => {
-    if(typeof data === 'string' && data.length  > 1){
-        return  data.charAt(0).toUpperCase() + data.slice(1);   
-    }else {
+    if (typeof data === 'string' && data.length > 1) {
+        return data.charAt(0).toUpperCase() + data.slice(1);
+    } else {
         return data;
     }
 }
