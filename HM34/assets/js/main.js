@@ -28,7 +28,7 @@ function getWeather() {
       degElement.textContent = data.wind.deg;
 
       const iconCode = data.weather[0].icon;
-      iconElement.setAttribute('src', `http://openweathermap.org/img/w/${iconCode}.png`);
+      iconElement.setAttribute('src', `https://openweathermap.org/img/w/${iconCode}.png`);
     })
     .catch(error => {
       console.error('Error fetching weather data:', error);
