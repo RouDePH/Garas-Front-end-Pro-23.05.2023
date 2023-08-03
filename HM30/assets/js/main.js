@@ -10,7 +10,7 @@ const rightColumn = document.querySelector('.right-column');
 const sticky = header.offsetTop;
 window.onscroll = pinHeader;
 
-function pinHeader() { // Функция закрепления хэдера 
+function pinHeader() {
     if (window.pageYOffset > sticky) {
         header.classList.add("sticky");
     } else {
@@ -18,9 +18,9 @@ function pinHeader() { // Функция закрепления хэдера
     }
 }
 
-let selectedCategoryNodeId = categories[0].nodeId; // Id выбранной категории 
+let selectedCategoryNodeId = categories[0].nodeId;
 
-navigator.addEventListener('click', (event) => { // Слушатель для смены категорий
+navigator.addEventListener('click', (event) => {
     if (event.target.nodeName === "IMG") {
         selectedCategoryNodeId = event.target.id;
         refreshCategories();
@@ -33,7 +33,7 @@ navigator.addEventListener('click', (event) => { // Слушатель для с
     leftColumn.innerHTML = '';
     hideDetails();
 
-    categories.forEach(category => { // Создаём новый набор категорий (обновляем выбранную пользователем категорию)
+    categories.forEach(category => {
 
         const iconElement = document.createElement('a');
         const icon = document.createElement('img');
@@ -53,7 +53,7 @@ navigator.addEventListener('click', (event) => { // Слушатель для с
 
     });
 
-    products.forEach(product => { /// Создаём новый список продуктов в зависимости от выбранной категории 
+    products.forEach(product => {
         if (selectedCategoryNodeId === product.category.nodeId) {
 
             const productElement = document.createElement('div');
@@ -77,10 +77,10 @@ navigator.addEventListener('click', (event) => { // Слушатель для с
 
 }
 
-function showDetails(product) { // Показываем детальную информацию о продукте 
+function showDetails(product) {
 
-    rightColumn.innerHTML = ""; // Очищаем компонент
-    rightColumn.style.flex = 1; // Меняем вес компонента (в закрытом положении flex = 0)
+    rightColumn.innerHTML = "";
+    rightColumn.style.flex = 1;
    
 
     const title = document.createElement('h3');
@@ -114,7 +114,7 @@ function showDetails(product) { // Показываем детальную ин�
     
 }
 
-function hideDetails() { // Прячем компонент детальной информациии продукта
+function hideDetails() {
     rightColumn.innerHTML = '';
     rightColumn.style.flex = 0;
 }

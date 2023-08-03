@@ -118,6 +118,11 @@ main {
     flex-wrap: wrap;
 }
 
+p{
+    width:100%;
+    flex-wrap: wrap;
+}
+
 .right-column {
     border-radius: 25px;
     flex: 0;
@@ -187,6 +192,10 @@ textarea {
     border-radius: 4px;
     background-color: #f8f8f8;
     resize: none;
+}
+
+strong{
+    padding-left:5em;
 }
 
 .button-container {
