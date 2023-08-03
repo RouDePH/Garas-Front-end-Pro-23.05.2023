@@ -2,6 +2,7 @@ import categories from "../js/data/categories.js";
 import products from "./data/products.js";
 
 const header = document.getElementById("header");
+const container = document.getElementById("container");
 const navigator = document.getElementById("navigator");
 const leftColumn = document.querySelector('.left-column');
 const rightColumn = document.querySelector('.right-column');
@@ -26,43 +27,7 @@ navigator.addEventListener('click', (event) => { // Слушатель для с
     }
 });
 
-function httpGet(theUrl)
-{
-    // var xmlHttp = new XMLHttpRequest();
- 
-    // xmlHttp.open( "GET", theUrl, true ); // false for synchronous request
-    // xmlHttp.setRequestHeader("Accept", "*/*");
-    // xmlHttp.setRequestHeader("Access-Control-Allow-Origin", "*");
-    // xmlHttp.setRequestHeader("Content-Type", "application/json");
-    // xmlHttp.setRequestHeader("Connection", "keep-alive");
-    // xmlHttp.send( null );
-    // return xmlHttp.responseText;
-
-    let request = new XMLHttpRequest()
-    // define the response variable to store the object with the JSON already parsed
-    let response = []
-    // make a request with json as the response format
-    request.open('GET', 'http://94.158.156.118/product/', true) // set true for asynchronous
-    request.setRequestHeader('Accept', 'application/json')
-
-
-    request.onreadystatechange = function () {
-    if (this.readyState === 4 && this.status === 200) {
-        // result will be json
-        // example: {"ip":"127.0.0.1"}
-        // parse the json via JSON.parse
-        response = JSON.parse(this.responseText)
-        // insert the value of the key "ip"
-        console.log(response);
-    }
-    };
-    // send back the response object
-    request.send(response)
-}
-
  function refreshCategories() {
-
-    var data =  httpGet("http://94.158.156.118/product/");
 
     navigator.innerHTML = ''; 
     leftColumn.innerHTML = '';
@@ -147,8 +112,6 @@ function showDetails(product) { // Показываем детальную ин�
     rightColumn.appendChild(price);
     rightColumn.appendChild(buttonContainer);
     
-
-
 }
 
 function hideDetails() { // Прячем компонент детальной информациии продукта
@@ -156,51 +119,77 @@ function hideDetails() { // Прячем компонент детальной �
     rightColumn.style.flex = 0;
 }
 
-function buyProduct(product) { // Выводим пользователю сообщение о покупке, закрываем компонент продукта 
+function buyProduct(product) {
 
-    // alert(`You bought ${product.name}, its price ${product.price}₴`);
+    rightColumn.innerHTML = `<div>
+    <h2>Order form</h2>
+    <p>The product's name: ${product.name}</p>
+    <p>Price: ${product.price}₴</p>
 
-    rightColumn.innerHTML = `<div class="order-form">
-    <h2>Інформація про товар</h2>
-    <p>Назва: <span id="product-name"></span></p>
-    <p>Ціна: <span id="product-price"></span></p>
-
-    <!-- Форма замовлення -->
     <form id="order-form">
-        <label for="name">ПІБ покупця:</label>
-        <input type="text" id="name" required>
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" required>
 
-        <label for="city">Місто:</label>
-        <select id="city" required>
-            <option value="">Оберіть місто</option>
-            <option value="city1">Місто 1</option>
-            <option value="city2">Місто 2</option>
-            <option value="city3">Місто 3</option>
+        <label for="city">City:</label>
+        <select id="city" name="city" required>
+            <option value="">Choose a city</option>
+            <option value="Odessa">Odessa</option>
+            <option value="Kyiv">Kyiv</option>
+            <option value="Lviv">Lviv</option>
         </select>
 
-        <label for="nova-poshta">Склад Нової пошти:</label>
-        <input type="text" id="nova-poshta" required>
+        <label for="nova-poshta">Post Office:</label>
+        <input type="text" id="nova-poshta" name="novaPoshta" required>
 
-        <label for="payment">Спосіб оплати:</label>
-        <select id="payment" required>
-            <option value="">Оберіть спосіб оплати</option>
-            <option value="cash">Післяплата</option>
-            <option value="card">Оплата банківською карткою</option>
+        <label for="payment">Payment Method:</label>
+        <select id="payment" name="payment" required>
+            <option value="">Choose a payment method</option>
+            <option value="Cash">Cash</option>
+            <option value="Card">Card</option>
         </select>
 
-        <label for="quantity">Кількість:</label>
+        <label for="quantity">Quantity:</label>
         <br>
-        <input type="number" id="quantity" min="1" value="1" required>
+        <input type="number" id="quantity" name="quantity" min="1" value="1" required>
         <br>
-        <label for="comment">Коментар до замовлення:</label>
-        <textarea id="comment"></textarea>
+        <label for="comment">Comments:</label>
+        <textarea id="comment" name="comment"></textarea>
 
         <input type="submit"></input>
     </form>
 </div>`;
 
-    // hideDetails()
+
+const registrationForm = document.getElementById("order-form");
+
+registrationForm.addEventListener("submit", function (e) {
+
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const entries = formData.entries();
+    const data = Object.fromEntries(entries);
+
+    hideDetails();  
+
+    const orderDetails = `
+      <p><strong>Full Name:</strong> ${data.name}</p><br>
+      <p><strong>City:</strong> ${data.city}</p><br>
+      <p><strong>Post Office:</strong> ${data.novaPoshta}</p><br>
+      <p><strong>Payment Method:</strong> ${data.payment}</p><br>
+      <p><strong>Product:</strong> ${product.name}</p><br>
+      <p><strong>Product price:</strong> ${product.price}₴</p><br>
+      <p><strong>Quantity:</strong> ${data.quantity}</p><br>
+      ${data.comment!= "" ? `<p><strong>Comments:</strong> ${data.comment}</p><br>` : ""}
+      <p><strong>Total Price:</strong> ${(data.quantity*product.price).toFixed(2)}₴</p><br>
+    `;
+
+    leftColumn.innerHTML = orderDetails;
+
+});
+
+
 }
 
 
-refreshCategories(); //Запускаем :)
+refreshCategories();
