@@ -128,11 +128,13 @@ main {
 
 .left-column {
     flex: 1;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
 }
 
 p {
+
     width: 100%;
     flex-wrap: wrap;
 }
@@ -215,4 +217,17 @@ strong {
 .button-container {
     display: flex;
     justify-content: space-between;
+}
+
+.order-data {
+    margin: 5px 5px;
+    padding: 10px;
+    border-radius: 16px;
+    background-color: #555;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.order-data:hover {
+    background-color: #aaa;
 }

@@ -15,68 +15,53 @@ window.onscroll = pinHeader;
 const headerIcon = document.createElement('img');
 headerIcon.src = "assets/images/list.png";
 headerIcon.className = "header-checklist";
-headerIcon.alt = `${"assets/images/list.png"}`;
+headerIcon.alt = "assets/images/list.png";
 
 headerIcon.onclick = showOrders;
 header.appendChild(headerIcon);
 const ordersStorage = new LocalStorage("orders");
 
-function generateUID() {
-    // I generate the UID from two parts here 
-    // to ensure the random number provide enough bits.
-    var firstPart = (Math.random() * 46656) | 0;
-    var secondPart = (Math.random() * 46656) | 0;
-    firstPart = ("000" + firstPart.toString(36)).slice(-3);
-    secondPart = ("000" + secondPart.toString(36)).slice(-3);
-    return firstPart + secondPart;
-}
-
-function showOrders() {
-    hideDetails();
-    leftColumn.innerHTML = null;
-    const data = ordersStorage.readObjectsFromStorage();
-
-
-    for (const key in data) {
-        console.log(key);
-
-        const dataNode = document.createElement("div");
-        dataNode.className = "product";
-        dataNode.innerHTML = data[key];
-
-        leftColumn.appendChild(dataNode);
-        // const entries = Object.entries(data[key]);
-        // for (const [key, value] of entries) {
-        //   console.log(key, value);
-        // }
-    }
-
-    // console.log(data);
-
-    // data.forEach(item => {
-    //     console.log(JSON.parse(item));
-    //     // 
-    // });
-
-
-}
-
-function pinHeader() {
-    if (window.pageYOffset > sticky) {
-        header.classList.add("sticky");
-    } else {
-        header.classList.remove("sticky");
-    }
-}
-
 let selectedCategoryNodeId = categories[0].nodeId;
-
 navigator.addEventListener('click', (event) => {
     if (event.target.nodeName === "IMG") {
         selectedCategoryNodeId = event.target.id;
         refreshCategories();
     }
 });
+
+
+function showOrders() {
+
+    const data = ordersStorage.readObjectsFromStorage();
+
+    if (Object.keys(data).length > 0) {
+
+        hideDetails();
+        leftColumn.innerHTML = null;
+
+        for (const key in data) {
+            console.log(data[key]);
+
+            const dataNode = document.createElement("div");
+            dataNode.className = "order-data";
+            const orderDetails = data[key].orderDetails;
+            const product = data[key].product;
+            const date = new Date(data[key].date);
+
+            var dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+            dataNode.innerHTML = `
+            <p><strong>Date:</strong> ${date.toLocaleDateString("en-US", dateOptions)}. ${date.getHours()}:${date.getMinutes()}</p>
+            <p><strong>Total Price:</strong> ${(orderDetails.quantity * product.price).toFixed(2)}₴</p><br></br>`;
+
+            leftColumn.appendChild(dataNode);
+            dataNode.addEventListener("click", () => showOrderDetails(orderDetails, product, key));
+        }
+    } else {
+        alert(`You didn't order`);
+    }
+}
+
 
 function refreshCategories() {
 
@@ -133,7 +118,6 @@ function showDetails(product) {
     rightColumn.innerHTML = "";
     rightColumn.style.flex = 1;
 
-
     const title = document.createElement('h3');
     title.innerText = product.name;
 
@@ -146,7 +130,6 @@ function showDetails(product) {
     const closeButton = document.createElement('button');
     closeButton.innerText = "Close";
     closeButton.onclick = hideDetails;
-
 
     const buyButton = document.createElement('button');
     buyButton.innerText = "Buy";
@@ -165,10 +148,7 @@ function showDetails(product) {
 
 }
 
-function hideDetails() {
-    rightColumn.innerHTML = '';
-    rightColumn.style.flex = 0;
-}
+
 
 function buyProduct(product) {
 
@@ -220,29 +200,68 @@ function buyProduct(product) {
         const formData = new FormData(e.target);
         const entries = formData.entries();
         const data = Object.fromEntries(entries);
+        const key = generateUID();
 
-        hideDetails();
-
-        const orderDetails = `
-      <p><strong>Full Name:</strong> ${data.name}</p><br>
-      <p><strong>City:</strong> ${data.city}</p><br>
-      <p><strong>Post Office:</strong> ${data.novaPoshta}</p><br>
-      <p><strong>Payment Method:</strong> ${data.payment}</p><br>
-      <p><strong>Product:</strong> ${product.name}</p><br>
-      <p><strong>Product price:</strong> ${product.price}₴</p><br>
-      <p><strong>Quantity:</strong> ${data.quantity}</p><br>
-      ${data.comment != "" ? `<p><strong>Comments:</strong> ${data.comment}</p><br>` : ""}
-      <p><strong>Total Price:</strong> ${(data.quantity * product.price).toFixed(2)}₴</p><br>
-    `;
-
-        leftColumn.innerHTML = orderDetails;
-
-        ordersStorage.addObject(generateUID(), { orderDetails: data, product: product });
+        ordersStorage.addObject(key, { orderDetails: data, product: product, date: Date() });
+        showOrderDetails(data, product, key);
 
     });
-
-
 }
 
+function showOrderDetails(orderData, product, key) {
+    hideDetails();
+
+    const deleteIcon = document.createElement('img');
+    deleteIcon.src = "assets/images/delete.png";
+    deleteIcon.className = "header-checklist";
+    deleteIcon.alt = "assets/images/delete.png";
+
+    deleteIcon.onclick = () => {
+
+        ordersStorage.deleteObject(key);
+        alert("Order deleted");
+
+        refreshCategories();
+
+    };
+
+    const orderDetails = `
+  <p><strong>Full Name:</strong> ${orderData.name}</p><br>
+  <p><strong>City:</strong> ${orderData.city}</p><br>
+  <p><strong>Post Office:</strong> ${orderData.novaPoshta}</p><br>
+  <p><strong>Payment Method:</strong> ${orderData.payment}</p><br>
+  <p><strong>Product:</strong> ${product.name}</p><br>
+  <p><strong>Product price:</strong> ${product.price}₴</p><br>
+  <p><strong>Quantity:</strong> ${orderData.quantity}</p><br>
+  ${orderData.comment != "" ? `<p><strong>Comments:</strong> ${orderData.comment}</p><br>` : ""}
+  <p><strong>Total Price:</strong> ${(orderData.quantity * product.price).toFixed(2)}₴</p><br>
+`;
+
+    leftColumn.innerHTML = orderDetails;
+
+    leftColumn.appendChild(deleteIcon);
+}
+
+
+function generateUID() {
+    var firstPart = (Math.random() * 46656) | 0;
+    var secondPart = (Math.random() * 46656) | 0;
+    firstPart = ("000" + firstPart.toString(36)).slice(-3);
+    secondPart = ("000" + secondPart.toString(36)).slice(-3);
+    return firstPart + secondPart;
+}
+
+function pinHeader() {
+    if (window.pageYOffset > sticky) {
+        header.classList.add("sticky");
+    } else {
+        header.classList.remove("sticky");
+    }
+}
+
+function hideDetails() {
+    rightColumn.innerHTML = '';
+    rightColumn.style.flex = 0;
+}
 
 refreshCategories();
