@@ -49,7 +49,7 @@ function showOrders() {
         // for (const [key, value] of entries) {
         //   console.log(key, value);
         // }
-      }
+    }
 
     // console.log(data);
 
@@ -237,7 +237,7 @@ function buyProduct(product) {
 
         leftColumn.innerHTML = orderDetails;
 
-        ordersStorage.addObject(generateUID(), {orderDetails: data, product: product});
+        ordersStorage.addObject(generateUID(), { orderDetails: data, product: product });
 
     });
 

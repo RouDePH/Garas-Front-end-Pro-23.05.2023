@@ -22,7 +22,7 @@ button {
     text-align: center;
     font-size: 16px;
     border-radius: 4px;
-  }
+}
 
 .header {
     padding: 10px 16px;
@@ -38,17 +38,17 @@ button {
     width: 50px;
     background-color: white;
     border-radius: 25px;
- }
+}
 
- .header-checklist:hover {
+.header-checklist:hover {
     padding: 8px 10px;
-    background-color: #aaa; 
- }
+    background-color: #aaa;
+}
 
 .sticky {
     position: fixed;
     top: 0;
-    width: calc(100% - 32px);    
+    width: calc(100% - 32px);
 }
 
 .footer {
@@ -58,7 +58,6 @@ button {
 }
 
 .navigator {
-    
     width: fit-content;
     background-color: #555;
 }
@@ -89,7 +88,7 @@ button {
 }
 
 .wrapper {
-    
+
     max-width: 60%;
     margin: 2.5% auto;
     display: grid;
@@ -133,8 +132,8 @@ main {
     flex-wrap: wrap;
 }
 
-p{
-    width:100%;
+p {
+    width: 100%;
     flex-wrap: wrap;
 }
 
@@ -209,11 +208,11 @@ textarea {
     resize: none;
 }
 
-strong{
-    padding-left:5em;
+strong {
+    padding-left: 5em;
 }
 
 .button-container {
     display: flex;
     justify-content: space-between;
-  }
+}
