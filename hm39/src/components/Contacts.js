@@ -22,7 +22,6 @@ const Contacts = () => {
   };
 
   const handleAddContact = (newContact) => {
-    // Додавання нового контакту
     setContacts([...contacts, newContact]);
     toggleForm();
   };
