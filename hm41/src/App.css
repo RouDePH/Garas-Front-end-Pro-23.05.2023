@@ -1,0 +1,29 @@
+.error {
+  color: red;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 10px;
+  width: 500px;
+}
+
+div {
+  padding: 5px;
+}
+
+label {
+  padding-right: 10px;
+}
+
+button {
+  margin: 10px;
+}
